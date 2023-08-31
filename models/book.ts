@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 
-interface Book extends Document {
+interface BookModel extends Document {
   id: number;
   title: string;
   description: string;
@@ -14,4 +14,4 @@ const bookSchema = new mongoose.Schema({
   author: String,
 });
 
-export const Book = mongoose.model<Book>('Book', bookSchema);
+export const Book = mongoose.model<BookModel>('Book', bookSchema);
