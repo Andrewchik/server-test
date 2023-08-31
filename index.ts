@@ -1,9 +1,10 @@
 import express, { Application } from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 
 import { connectDB } from './db';
 import bookRoutes from './routes/bookRoutes';
-import bodyParser from 'body-parser';
+
 
 const app: Application = express();
 const PORT: number = 5000;
