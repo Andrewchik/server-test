@@ -1,14 +1,5 @@
 import { Request, Response } from 'express';
-import mongoose from 'mongoose';
-
-const bookSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  author: String,
-});
-
-
-const Book = mongoose.model('Book', bookSchema);
+import Book from 'models/Book';
 
 export const getBooks = async (req: Request, res: Response) => {  
   try {
@@ -16,5 +7,23 @@ export const getBooks = async (req: Request, res: Response) => {
     res.json(books);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching books', error });
+  }
+};
+
+export const createBook = async (req: Request, res: Response) => {
+  try {
+    const { title, description, author } = req.body;
+
+    const newBook = new Book({
+      title,
+      description,
+      author,
+    });
+
+    const savedBook = await newBook.save();
+
+    res.status(201).json(savedBook);
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating a book', error });
   }
 };
