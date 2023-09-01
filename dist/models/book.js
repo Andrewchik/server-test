@@ -4,17 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-// interface BookModel extends Document {
-//   id: number;
-//   title: string;
-//   description: string;
-//   author: string;
-// }
 const bookSchema = new mongoose_1.default.Schema({
     title: String,
     description: String,
     author: String,
 });
 const Book = mongoose_1.default.model('Book', bookSchema);
-module.exports = Book;
+exports.default = Book;
 //# sourceMappingURL=Book.js.map

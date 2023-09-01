@@ -12,17 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getBooks = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const bookSchema = new mongoose_1.default.Schema({
-    title: String,
-    description: String,
-    author: String,
-});
-const Book = mongoose_1.default.model('Book', bookSchema);
+exports.createBook = exports.getBooks = void 0;
+const Book_1 = __importDefault(require("../models/Book"));
+console.log(Book_1.default);
 const getBooks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const books = yield Book.find();
+        const books = yield Book_1.default.find();
         res.json(books);
     }
     catch (error) {
@@ -30,4 +25,20 @@ const getBooks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getBooks = getBooks;
+const createBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { title, description, author } = req.body;
+        const newBook = new Book_1.default({
+            title,
+            description,
+            author,
+        });
+        const savedBook = yield newBook.save();
+        res.status(201).json(savedBook);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error creating a book', error });
+    }
+});
+exports.createBook = createBook;
 //# sourceMappingURL=bookController.js.map
