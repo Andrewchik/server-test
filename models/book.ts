@@ -8,10 +8,12 @@ interface BookModel extends Document {
 }
 
 const bookSchema = new mongoose.Schema({
-  id: Number,
   title: String,
   description: String,
   author: String,
 });
 
-export const Book = mongoose.model<BookModel>('Book', bookSchema);
+
+const Book = mongoose.model<BookModel>('Book', bookSchema);
+
+module.exports = Book;
