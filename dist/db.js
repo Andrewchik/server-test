@@ -18,7 +18,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const mongodbUri = process.env.MONGODB_URI;
+        const mongodbUri = 'mongodb+srv://andrew:GoPro2323@cluster0.amrqtfy.mongodb.net/?retryWrites=true&w=majority';
         if (!mongodbUri) {
             console.error('MONGODB_URI environment variable is not set');
         }

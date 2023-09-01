@@ -4,7 +4,7 @@ dotenv.config();
 
 export const connectDB = async () => {
   try {
-    const mongodbUri = process.env.MONGODB_URI;
+    const mongodbUri = 'mongodb+srv://andrew:GoPro2323@cluster0.amrqtfy.mongodb.net/?retryWrites=true&w=majority';
 
     if (!mongodbUri) {
       console.error('MONGODB_URI environment variable is not set');

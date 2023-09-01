@@ -8,10 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getBooks = void 0;
-// import Book from '../models/Book';
-const Book = require('../models/Book');
+const mongoose_1 = __importDefault(require("mongoose"));
+const bookSchema = new mongoose_1.default.Schema({
+    title: String,
+    description: String,
+    author: String,
+});
+const Book = mongoose_1.default.model('Book', bookSchema);
 const getBooks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const books = yield Book.find();

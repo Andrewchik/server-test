@@ -1,6 +1,14 @@
 import { Request, Response } from 'express';
-// import Book from '../models/Book';
-const {Book} = require('../models/Book')
+import mongoose from 'mongoose';
+
+const bookSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  author: String,
+});
+
+
+const Book = mongoose.model('Book', bookSchema);
 
 export const getBooks = async (req: Request, res: Response) => {  
   try {
