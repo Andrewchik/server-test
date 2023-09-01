@@ -5,6 +5,6 @@ const router = Router();
 
 router.get('/', getBooks);
 
-router.post('/', createBook);
+router.post('/create', createBook);
 
 export default router;
