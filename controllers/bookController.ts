@@ -1,10 +1,20 @@
 import { Request, Response } from 'express';
 import Book from '../models/book';
+import MyBook from '../models/mybook';
 
 
 export const getBooks = async (req: Request, res: Response) => {  
   try {
     const books = await Book.find();
+    res.json(books);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching books', error });
+  }
+};
+
+export const getMyBooks = async (req: Request, res: Response) => {  
+  try {
+    const books = await MyBook.find();
     res.json(books);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching books', error });
@@ -33,7 +43,7 @@ export const updateBook = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const updatedBook = await Book.findByIdAndUpdate(id, req.body, { new: true });
+    const updatedBook = await MyBook.findByIdAndUpdate(id, req.body, { new: true });
 
     if (!updatedBook) {
       return res.status(404).json({ message: 'Book not found' });
@@ -54,6 +64,11 @@ export const deleteBook = async (req: Request, res: Response) => {
     if (!deletedBook) {
       return res.status(404).json({ message: 'Book not found' });
     }
+
+    const { title, description, author } = deletedBook.toObject();
+    const newMyBook = new MyBook({ title, description, author });
+
+    const savedMyBook = await newMyBook.save();
 
     return res.status(204).send();
   } catch (error) {

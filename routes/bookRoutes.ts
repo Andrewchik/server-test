@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { getBooks, createBook, updateBook, deleteBook } from '../controllers/bookController';
+import { getBooks, getMyBooks, createBook, updateBook, deleteBook } from '../controllers/bookController';
 
 const router = Router();
 
 router.get('/', getBooks);
+
+router.get('/my', getMyBooks);
 
 router.post('/create', createBook);
 
