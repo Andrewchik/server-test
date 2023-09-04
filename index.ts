@@ -1,11 +1,12 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import passport from 'passport';
+import { graphqlHTTP } from 'express-graphql';
 
 import { connectDB } from './db';
 import bookRoutes from './routes/bookRoutes';
 import authRoutes from './routes/authRoutes';
+import schema from './graphql/schema';
 
 
 const app: Application = express();
@@ -18,7 +19,16 @@ app.use(cors());
 app.use('/api/books', bookRoutes);
 app.use('/auth', authRoutes);
 
+
 connectDB();
+
+app.use(
+    '/graphql',
+    graphqlHTTP({
+      schema,
+      graphiql: true,
+    })
+  );
 
 
 app.listen(PORT, () => {

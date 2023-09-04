@@ -3,12 +3,22 @@ import Book from '../models/book';
 import MyBook from '../models/mybook';
 
 
-export const getBooks = async (req: Request, res: Response) => {  
+// export const getBooks = async (req: Request, res: Response) => {  
+//   try {
+//     const books = await Book.find();
+//     res.json(books);
+//   } catch (error) {
+//     res.status(500).json({ message: 'Error fetching books', error });
+//   }
+// };
+
+export const getBooks = async () => {
   try {
     const books = await Book.find();
-    res.json(books);
+    
+    return books;
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching books', error });
+    throw new Error('Error fetching books'); // You can handle errors at a higher level in your GraphQL schema or resolver
   }
 };
 
@@ -73,5 +83,22 @@ export const deleteBook = async (req: Request, res: Response) => {
     return res.status(204).send();
   } catch (error) {
     return res.status(500).json({ message: 'Error deleting book', error });
+  }
+};
+
+
+export const deleteMyBook = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const deletedMyBook = await MyBook.findByIdAndRemove(id);
+
+    if (!deletedMyBook) {
+      return res.status(404).json({ message: 'MyBook not found' });
+    }
+
+    return res.status(204).send();
+  } catch (error) {
+    return res.status(500).json({ message: 'Error deleting MyBook', error });
   }
 };
