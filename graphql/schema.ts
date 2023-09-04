@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLNonNull } from 'graphql';
-import { getBooks, deleteBook } from '../controllers/bookController';
+import { deleteBook, getBooksGraphQL } from '../controllers/bookController';
 
 const BookType = new GraphQLObjectType({
   name: 'Book',
@@ -16,12 +16,11 @@ const RootQuery = new GraphQLObjectType({
     books: {
       type: new GraphQLList(BookType),
       resolve: () => {
-        return getBooks();
+        return getBooksGraphQL();
       },
     },
   },
 });
-
 
 // const RootMutation = new GraphQLObjectType({
 //   name: 'RootMutation',
@@ -32,9 +31,7 @@ const RootQuery = new GraphQLObjectType({
 //         id: { type: new GraphQLNonNull(GraphQLString) },
 //       },
 //       resolve: (_, args) => {
-//         // Реалізуйте функціональність для видалення книги за ID
-//         const result = deleteBook(args.id);
-//         return result ? 'Book deleted successfully' : 'Book not found';
+//         return deleteBook(args.id);
 //       },
 //     },
 //   },

@@ -3,24 +3,24 @@ import Book from '../models/book';
 import MyBook from '../models/mybook';
 
 
-// export const getBooks = async (req: Request, res: Response) => {  
-//   try {
-//     const books = await Book.find();
-//     res.json(books);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error fetching books', error });
-//   }
-// };
-
-export const getBooks = async () => {
+export const getBooks = async (req: Request, res: Response) => {  
   try {
     const books = await Book.find();
-    
-    return books;
+    res.json(books);
   } catch (error) {
-    throw new Error('Error fetching books'); // You can handle errors at a higher level in your GraphQL schema or resolver
+    res.status(500).json({ message: 'Error fetching books', error });
   }
 };
+
+export const getBooksGraphQL = async () => {
+  try {
+    const books = await Book.find();
+    return books;
+  } catch (error) {
+    throw new Error('Error fetching books');
+  }
+};
+
 
 export const getMyBooks = async (req: Request, res: Response) => {  
   try {
