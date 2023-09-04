@@ -9,8 +9,9 @@ Briefly describe your application and its purpose here.
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
-- [GraphQL Endpoints](#api-graphql)
+- [GraphQL Endpoints](#graphql-endpoints)
 - [Architecture](#architecture)
+- [Business Logic](#business-logic)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -256,6 +257,56 @@ Our project is organized into folders and files that follow a structured layout,
 - **middleware**: Includes custom middleware functions for authentication and error handling.
 
 This architecture ensures that our application is scalable, maintainable, and follows best practices for building modern web applications.
+
+### Business Logic
+
+Our application's business logic is centered around managing books and user authentication. Here's an overview of the key business logic components:
+
+#### Books Management
+
+- **Creating Books**: Users can create new books by providing details such as title, author, and description. This functionality is available through the RESTful API and GraphQL.
+
+- **Updating Books**: Existing books can be updated by specifying their unique ID. Users can modify the title and description of books using the RESTful API.
+
+- **Fetching Books**: Books can be retrieved in multiple ways:
+  - RESTful API: Allows users to fetch individual books by ID, get a list of all books, and fetch books specific to a user.
+  - GraphQL: Provides flexibility in querying data, including fetching all books in a single request.
+
+- **Deleting Books**: Books can be deleted by specifying their unique ID. When a book is deleted through the RESTful API, it is transferred to the user's collection of "My Books."
+
+#### User Authentication
+
+- **JWT Authentication**: Our application uses JSON Web Tokens (JWT) for user authentication. When a user logs in, they receive a JWT token, which is included in subsequent requests to authenticate and authorize the user.
+
+- **User Registration**: New users can register by providing their username and password. The password is securely hashed and stored in the database.
+
+- **User Login**: Registered users can log in by providing their credentials (username and password).
+
+- **Authorization**: Authenticated users have specific privileges:
+  - Creating and updating books (if they are the authors).
+  - Deleting books (if they are the authors).
+  - Fetching books, including their own collection of "My Books."
+
+#### Error Handling
+
+We've implemented error handling to ensure that our application provides informative error responses to clients. This includes handling validation errors, authentication failures, and other potential issues that may arise during request processing.
+
+#### Security
+
+Security is a paramount concern in our application:
+- Passwords are securely hashed and stored.
+- JWT tokens are used for secure user authentication.
+- Proper validation and input sanitization are applied to prevent security vulnerabilities.
+
+### Additional Details
+
+We've strived to follow best practices in our application's architecture and development, including:
+- Implementing separation of concerns by organizing code into models, controllers, routes, and GraphQL schemas.
+- Using middleware for authentication and error handling.
+- Employing a modular folder structure for maintainability.
+
+Our application's architecture is designed to be scalable, maintainable, and secure, providing a solid foundation for future enhancements and improvements.
+
 
 ## Contributing
 
