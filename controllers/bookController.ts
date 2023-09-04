@@ -3,14 +3,14 @@ import Book from '../models/book';
 import MyBook from '../models/mybook';
 
 
-export const getBooks = async (req: Request, res: Response) => {  
-  try {
-    const books = await Book.find();
-    res.json(books);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching books', error });
-  }
-};
+// export const getBooks = async (req: Request, res: Response) => {  
+//   try {
+//     const books = await Book.find();
+//     res.json(books);
+//   } catch (error) {
+//     res.status(500).json({ message: 'Error fetching books', error });
+//   }
+// };
 
 export const getBooksGraphQL = async () => {
   try {
@@ -86,6 +86,24 @@ export const deleteBook = async (req: Request, res: Response) => {
   }
 };
 
+export const deleteBookGraphQL = async (bookId: string) => {
+  try {
+    const deletedBook = await Book.findByIdAndRemove(bookId);
+
+    if (!deletedBook) {
+      return 'Book not found';
+    }
+
+    const { title, description, author } = deletedBook.toObject();
+    const newMyBook = new MyBook({ title, description, author });
+
+    await newMyBook.save();
+
+    return 'Book deleted successfully';
+  } catch (error) {
+    throw new Error('Error deleting book');
+  }
+};
 
 export const deleteMyBook = async (req: Request, res: Response) => {
   const { id } = req.params;

@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLNonNull } from 'graphql';
-import { deleteBook, getBooksGraphQL } from '../controllers/bookController';
+import { deleteBook, deleteBookGraphQL, getBooksGraphQL } from '../controllers/bookController';
 
 const BookType = new GraphQLObjectType({
   name: 'Book',
@@ -22,24 +22,24 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
-// const RootMutation = new GraphQLObjectType({
-//   name: 'RootMutation',
-//   fields: {
-//     deleteBook: {
-//       type: GraphQLString,
-//       args: {
-//         id: { type: new GraphQLNonNull(GraphQLString) },
-//       },
-//       resolve: (_, args) => {
-//         return deleteBook(args.id);
-//       },
-//     },
-//   },
-// });
+const RootMutation = new GraphQLObjectType({
+  name: 'RootMutation',
+  fields: {
+    deleteBook: {
+      type: GraphQLString,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: (_, args) => {
+        return deleteBookGraphQL(args.id);
+      },
+    },
+  },
+});
 
 const schema = new GraphQLSchema({
   query: RootQuery,
-  // mutation: RootMutation,
+  mutation: RootMutation,
 });
 
 export default schema;
