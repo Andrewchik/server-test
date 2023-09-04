@@ -6,6 +6,7 @@ const BookType = new GraphQLObjectType({
   fields: {
     id: { type: GraphQLString },
     title: { type: GraphQLString },
+    description: { type: GraphQLString },
     author: { type: GraphQLString },
   },
 });
